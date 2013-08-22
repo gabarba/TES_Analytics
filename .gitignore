@@ -8,3 +8,4 @@ tes_analytics_l4.sublime-project
 tes_analytics_l4.sublime-workspace
 /app/config/database.php
 /app/config/app.php
+*.bak
