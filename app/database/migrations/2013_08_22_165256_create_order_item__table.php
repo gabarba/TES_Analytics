@@ -15,7 +15,15 @@ class CreateOrderItemTable extends Migration {
 		Schema::create('order_item', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->timestamps();
+			$table->string('shipworks_order_id');
+			$table->string('name');
+			$table->string('sku');
+			$table->string('map_sku');
+			$table->int('qty');
+			$table->decimal('unit_price',6,2);
+			$table->decimal('total',6,2);
+			$table->boolean('product_mapped');
+			$table->foreign('shipworks_order_id')->references('shipworks_order_id')->on('orders');
 		});
 	}
 
