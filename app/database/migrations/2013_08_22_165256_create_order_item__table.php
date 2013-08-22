@@ -19,7 +19,7 @@ class CreateOrderItemTable extends Migration {
 			$table->string('name');
 			$table->string('sku');
 			$table->string('map_sku');
-			$table->int('qty');
+			$table->integer('qty');
 			$table->decimal('unit_price',6,2);
 			$table->decimal('total',6,2);
 			$table->boolean('product_mapped');
