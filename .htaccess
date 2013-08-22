@@ -1,0 +1,2 @@
+Action application/x-hg-php53 /cgi-sys/php53
+AddType application/x-httpd-php53 .php
