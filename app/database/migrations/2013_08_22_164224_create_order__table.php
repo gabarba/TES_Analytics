@@ -17,6 +17,7 @@ class CreateOrderTable extends Migration {
 			$table->increments('id');
 			$table->string('shipworks_order_id')->unique();
 			$table->date('order_date');
+			$table->foreign('customer_id')->references('id')->on('customers');
 			$table->string('ship_name');
 			$table->string('ship_address1');
 			$table->string('ship_address2');
