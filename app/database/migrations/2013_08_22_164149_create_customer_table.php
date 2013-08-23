@@ -16,13 +16,14 @@ class CreateCustomerTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name');
+			$table->string('email')->unique();
 			$table->string('address1');
 			$table->string('address2');
 			$table->string('address3');
 			$table->string('city');
 			$table->string('postal_code');
-			$table->string('phone');
-			$table->string('email')->unique();
+			$table->string('country_code');
+			$table->string('phone');			
 			$table->timestamps();
 		});
 	}
