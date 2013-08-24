@@ -1,6 +1,6 @@
 <?php
 
-class Customers extends \BaseController {
+class CustomersController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,7 +9,7 @@ class Customers extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		
 	}
 
 	/**
@@ -40,7 +40,7 @@ class Customers extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		return Customers::find($id)->toJson();
 	}
 
 	/**
