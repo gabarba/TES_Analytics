@@ -11,4 +11,4 @@
 |
 */
 
-Route::resource('customers','ProductsController');
+Route::resource('customers','CustomersController');
