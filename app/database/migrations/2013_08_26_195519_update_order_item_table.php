@@ -14,7 +14,7 @@ class UpdateOrderItemTable extends Migration {
 	{
 		Schema::table('order_item', function(Blueprint $table)
 		{
-			//
+			$table->integer('order_id')->after('id');
 		});
 	}
 
@@ -27,7 +27,7 @@ class UpdateOrderItemTable extends Migration {
 	{
 		Schema::table('order_item', function(Blueprint $table)
 		{
-			//
+			$table->dropColumn('order_id');
 		});
 	}
 
