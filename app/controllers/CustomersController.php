@@ -10,7 +10,7 @@ class CustomersController extends \BaseController {
 	public function orderItemsCount($count) 
 	{
 		$customers = array();
-		$orders = Orders::with('customer')->has('items','>=',$count)->get();
+		$orders = Orders::has('items','>=',$count)->get();
 
 		foreach($orders as $order) {
 			if(!array_key_exists($order->customer->id, $customers)){
