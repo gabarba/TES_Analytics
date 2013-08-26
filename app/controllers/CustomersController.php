@@ -2,6 +2,10 @@
 
 class CustomersController extends \BaseController {
 
+
+
+	protected $layout = 'layouts.base';
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -40,7 +44,11 @@ class CustomersController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		return Customers::find($id)->toJson();
+		$customer = Customers::where('id',$id)->with('orders.items')->first();
+
+		$this->layout->contents = View::make('customers.show',compact('customer'));
+
+		//return $customer->toJson();
 	}
 
 	/**

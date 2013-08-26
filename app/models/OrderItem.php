@@ -5,7 +5,7 @@ class OrderItem extends Eloquent {
 
 	public function order() {
 		return $this->belongsTo('Orders');
-	};
+	}
 
 }
 
