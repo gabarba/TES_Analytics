@@ -2,7 +2,7 @@
 class Orders extends Eloquent {
 	
 public function items() {
-		return $this->hasMany('OrderItem','id');
+		return $this->hasMany('OrderItem');
 	}
 
 public function customer() {
