@@ -18,5 +18,5 @@ Route::get('customers/OrderItemsGreaterThan/{count}','CustomersController@orderI
 
 Route::get('updateOrderItems', function()
 {
-	
+	return null;
 })
