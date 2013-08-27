@@ -17,11 +17,14 @@ class CreateProductsTable extends Migration {
 			$table->increments('id');
 			$table->string('sku')->unique();
 			$table->string('name');
+			$table->string('image_url');
+			$table->string('product_url');
 			$table->decimal('current_price',6,2);
 			$table->decimal('current_cost',6,2);
 			$table->string('manufacturer');
 			$table->string('vendor');
 			$table->string('type');
+			$table->boolean('status');
 			$table->timestamps();
 		});
 	}
