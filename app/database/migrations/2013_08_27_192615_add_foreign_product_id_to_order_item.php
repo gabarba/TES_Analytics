@@ -14,7 +14,8 @@ class AddForeignProductIdToOrderItem extends Migration {
 	{
 		Schema::table('order_item', function(Blueprint $table)
 		{
-			//
+			$table->integer('products_id')->after('sku')->unsigned();
+			$table->foreign('products_id')->references('id')->on('products');
 		});
 	}
 
@@ -27,7 +28,7 @@ class AddForeignProductIdToOrderItem extends Migration {
 	{
 		Schema::table('order_item', function(Blueprint $table)
 		{
-			//
+			$table->dropForeign('order_item_products_id_foreign');
 		});
 	}
 
