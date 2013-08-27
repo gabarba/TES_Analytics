@@ -14,7 +14,7 @@ class UpdateOrderItemTable extends Migration {
 	{
 		Schema::table('order_item', function(Blueprint $table)
 		{
-			//
+			$table->foreign('order_id')->references('id')->on('orders');
 		});
 	}
 
@@ -27,7 +27,7 @@ class UpdateOrderItemTable extends Migration {
 	{
 		Schema::table('order_item', function(Blueprint $table)
 		{
-			//
+			$table->dropForeign('order_item_order_id_foreign');
 		});
 	}
 
