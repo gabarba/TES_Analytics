@@ -17,15 +17,7 @@ Route::get('customers/OrderItemsGreaterThan/{count}','CustomersController@orderI
 
 Route::get('/', function()
 {
-	$orderItems = OrderItem::where('order_id',0)->get();
-
-	foreach($orderItems as $item) {
-		$linkItemTo = Orders::where('shipworks_order_id',$item->shipworks_order_id)->first();
-		if($linkItemTo) {
-			$item->order_id = $linkItemTo->id;
-			$item->save();
-		};
-		
-	};
-	return "Relations Complete";
+	$customers = Customers::where('avg_time_between_orders','>',0)->avg('avg_time_between_orders');
+	//$customers = Customers::where('country_code','US')->where('state','CA')->count();
+	return "Average Days Between Orders Customers who ordered more than once: ".$customers;
 });

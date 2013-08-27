@@ -8,6 +8,22 @@ public function items() {
 public function customer() {
 		return $this->belongsTo('Customers');
 	}
+public function calculatedOrderTotal() {
+		$items = $this->items;
+		$total = 0;
+		foreach($items as $item) {
+			$total += $item->total;
+		}
+		return $total;
+	}
+public function calculatedQtyTotal() {
+		$items = $this->items;
+		$total = 0;
+		foreach($items as $item) {
+			$total += $item->qty;
+		}
+		return $total;
+	}
 
 }
 

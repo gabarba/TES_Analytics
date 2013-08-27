@@ -41,6 +41,13 @@
 										<td>{{$item->total}}</td>
 									</tr>
 								@endforeach
+								<tr>
+									<td>Totals</td>
+									<td></td>
+									<td>{{$order->calculatedQtyTotal()}}</td>
+									<td></td>
+									<td>{{$order->calculatedOrderTotal()}}</td>
+								</tr>
 							</table>						
 					</td>
 				</tr>
