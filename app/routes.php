@@ -14,10 +14,13 @@
 Route::resource('customers','CustomersController');
 
 Route::get('customers/OrderItemsGreaterThan/{count}','CustomersController@orderItemsCount');
-
+/*
 Route::get('/', function()
 {
 	$customers = Customers::where('avg_time_between_orders','>',0)->avg('avg_time_between_orders');
 	//$customers = Customers::where('country_code','US')->where('state','CA')->count();
 	return "Average Days Between Orders Customers who ordered more than once: ".$customers;
 });
+*/
+
+Route::get('/','SummaryController@getSummary');
