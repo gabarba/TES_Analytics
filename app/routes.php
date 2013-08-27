@@ -14,13 +14,24 @@
 Route::resource('customers','CustomersController');
 
 Route::get('customers/OrderItemsGreaterThan/{count}','CustomersController@orderItemsCount');
-/*
+
 Route::get('/', function()
 {
-	$customers = Customers::where('avg_time_between_orders','>',0)->avg('avg_time_between_orders');
-	//$customers = Customers::where('country_code','US')->where('state','CA')->count();
-	return "Average Days Between Orders Customers who ordered more than once: ".$customers;
-});
-*/
+	$orderItems = OrderItem::where('products_id',0)->get();
 
-Route::get('/','SummaryController@getSummary');
+	foreach($orderItems as $item) {
+		$product_id = Products::where('sku',$item->sku)->first();
+
+		if($product_id) {
+			$item->products_id = (int)$product_id->id;
+			$item->product_mapped = 1;
+			$item->save();
+		}
+	}
+	//$customers = Customers::where('avg_time_between_orders','>',0)->avg('avg_time_between_orders');
+	//$customers = Customers::where('country_code','US')->where('state','CA')->count();
+	return "Product Id ASSOC Complete!";
+});
+
+
+//Route::get('/','SummaryController@getSummary');
