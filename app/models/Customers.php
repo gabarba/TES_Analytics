@@ -7,17 +7,17 @@ class Customers extends Eloquent {
 
 	//Return Customer data in array
 	public function info() {
-		$customerData = array(	'Id' 			=> $this->id,
-								'Name' 			=> $this->name,
-								'Address 1' 	=> $this->address1,
-								'Address 2' 	=> $this->address2,
-								'Address 3' 	=> $this->address3,
-								'City' 			=> $this->city,
-								'State' 		=> $this->state,
-								'Postal Code' 	=> $this->postal_code,
-								'Country Code' 	=> $this->country_code,
-								'Phone' 		=> $this->phone,
-								'Email' 		=> $this->email
+		$customerData = array(	'id' 			=> $this->id,
+								'name' 			=> $this->name,
+								'address 1' 	=> $this->address1,
+								'address 2' 	=> $this->address2,
+								'address 3' 	=> $this->address3,
+								'city' 			=> $this->city,
+								'state' 		=> $this->state,
+								'postal code' 	=> $this->postal_code,
+								'country code' 	=> $this->country_code,
+								'phone' 		=> $this->phone,
+								'email' 		=> $this->email
 					);
 		return $customerData;
 	}

@@ -6,7 +6,7 @@ public function items() {
 	}
 
 public function customer() {
-		return $this->belongsTo('Customers');
+		return $this->belongsTo('Customers','customers_id');
 	}
 public function calculatedOrderTotal() {
 		$items = $this->items;

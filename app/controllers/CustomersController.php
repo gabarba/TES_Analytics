@@ -10,13 +10,16 @@ class CustomersController extends \BaseController {
 	public function orderItemsCount($count) 
 	{
 		$customers = array();
-		$orders = Orders::has('items','>=',$count)->get();
+		$orders = Orders::with('customer')->has('items','>=',$count)->get();
 
-		foreach($orders as $order) {
+		if($orders) {
+			foreach($orders as $order) {
 			if(!array_key_exists($order->customer->id, $customers)){
-				$customers[$order->customer->id] = $order->customer->name;
+				$customers[$order->customer->id] = $order->customer->info();
 				}	
+			}
 		}
+		
 
 		$this->layout->contents = View::make('customers.orderItemsCount', compact('customers'));
 	}
