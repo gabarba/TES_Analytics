@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration {
 			$table->string('product_url');
 			$table->decimal('current_price',6,2);
 			$table->decimal('current_cost',6,2);
+			$table->decimal('current_special',6,2);
 			$table->string('manufacturer');
 			$table->string('vendor');
 			$table->string('type');
