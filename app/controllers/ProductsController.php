@@ -14,7 +14,8 @@ class ProductsController extends \BaseController {
 	 */
 	public function index()
 	{
-		
+		$products = Products::all()->paginate(50);
+		$this->layout->contents = View::make('products.index',compact('products'));
 	}
 
 	/**
@@ -45,9 +46,9 @@ class ProductsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$customer = Customers::where('id',$id)->with('orders.items')->first();
+		$product = Products::find($id);
 
-		$this->layout->contents = View::make('customers.show',compact('customer'));
+		$this->layout->contents = View::make('customers.show',compact('product'));
 
 		//return $customer->toJson();
 	}

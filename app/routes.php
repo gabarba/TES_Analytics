@@ -12,6 +12,7 @@
 */
 
 Route::resource('customers','CustomersController');
+Route::resource('products','ProductsController');
 
 Route::get('customers/OrderItemsGreaterThan/{count}','CustomersController@orderItemsCount');
 /*

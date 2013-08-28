@@ -2,54 +2,21 @@
 
 	@if($products)
 
-	
-	<div class="customer-info">
-		@foreach($customer->info() as $key => $info)
-		<div class="data-line">	
-			<div class="label">{{$key}}:</div>
-			<div class="value">{{$info}}</div>
-		</div>	
-		@endforeach
-	</div>
 
-	<div class="customer-orders">
+	<div class="products-list">
 		<table class="data-table">
 			<tr>
-				<th>Order Date</th>
-				<th>Shipworks Order ID</th>
+				<th>Id</th>
+				<th>Sku</th>
+				<th>Name</th>
+				<th>Current Price</th>
 			</tr>
-			@foreach($customer->orders as $order)
+			@foreach($products as $product)
 				<tr>
-					<td>{{$order->order_date}}</td>
-					<td>{{$order->shipworks_order_id}}</td>
-					<td>
-						
-							<table class="data-table full">
-								<tr>
-									<th>Name:</th>
-									<th>SKU:</th>
-									<th>QTY:</th>
-									<th>Unit Price:</th>
-									<th>Total:</th>
-								</tr>
-								@foreach($order->items as $item)
-									<tr>
-										<td>{{$item->name}}</td>
-										<td>{{$item->sku}}</td>
-										<td>{{$item->qty}}</td>
-										<td>{{$item->unit_price}}</td>
-										<td>{{$item->total}}</td>
-									</tr>
-								@endforeach
-								<tr>
-									<td>Totals</td>
-									<td></td>
-									<td>{{$order->calculatedQtyTotal()}}</td>
-									<td></td>
-									<td>{{$order->calculatedOrderTotal()}}</td>
-								</tr>
-							</table>						
-					</td>
+					<td>{{$product->id}}</td>
+					<td>{{$product->sku}}</td>
+					<td>{{$product->name}}</td>
+					<td>{{$product->current_price}}</td>
 				</tr>
 			@endforeach
 		</table>
