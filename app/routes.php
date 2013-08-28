@@ -14,7 +14,7 @@
 Route::resource('customers','CustomersController');
 
 Route::get('customers/OrderItemsGreaterThan/{count}','CustomersController@orderItemsCount');
-
+/*
 Route::get('/', function()
 {
 	$orderItems = OrderItem::where('products_id',0)->get();
@@ -32,6 +32,6 @@ Route::get('/', function()
 	//$customers = Customers::where('country_code','US')->where('state','CA')->count();
 	return "Product Id ASSOC Complete!";
 });
+*/
 
-
-//Route::get('/','SummaryController@getSummary');
+Route::get('/','SummaryController@getSummary');
