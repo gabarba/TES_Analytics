@@ -1,7 +1,7 @@
 <?php 
 class Products extends Eloquent {
 	
-public function sold() {
+public function itemsSold() {
 			return $this->hasMany('OrderItem');
 		}
 
@@ -24,6 +24,21 @@ public function sold() {
 
 					);
 		return $productData;
+	}
+
+	public function howManySoldIn($days = 90) {
+		$date = new DateTime('today');
+		$date->modify('-'.$days.' day');
+		/*
+		$orderItems = OrderItem::with(array('order'=> function($query) {
+			$query->where('order_date','>=',$date->format('Y-m-d'));
+		}))->where('products_id',$this->id)->sum('qty');
+		*/
+		$orderItems = OrderItem::where('products_id',$this->id)
+								->join('orders','order_item.order_id','=','orders.id')
+								->where('orders.order_date','>=',$date->format('Y-m-d'))
+								->sum('qty');
+		return $orderItems;
 	}
 }
 

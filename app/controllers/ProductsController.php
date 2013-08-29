@@ -14,7 +14,7 @@ class ProductsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$products = Products::all()->paginate(50);
+		$products = Products::where('id','>',0)->paginate(50);
 		$this->layout->contents = View::make('products.index',compact('products'));
 	}
 
@@ -48,7 +48,7 @@ class ProductsController extends \BaseController {
 	{
 		$product = Products::find($id);
 
-		$this->layout->contents = View::make('customers.show',compact('product'));
+		$this->layout->contents = View::make('products.show',compact('product'));
 
 		//return $customer->toJson();
 	}
