@@ -14,7 +14,7 @@ class AddColumnOrderStatusToOrderTable extends Migration {
 	{
 		Schema::table('orders', function(Blueprint $table)
 		{
-			//
+			$table->boolean('status');
 		});
 	}
 
@@ -27,7 +27,7 @@ class AddColumnOrderStatusToOrderTable extends Migration {
 	{
 		Schema::table('orders', function(Blueprint $table)
 		{
-			//
+			$table->dropColumn('status');
 		});
 	}
 
