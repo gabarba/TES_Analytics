@@ -19,7 +19,7 @@ class ProductsController extends \BaseController {
 		$perPage = Input::get('perpage',50);
 
 		$products = Products::ProductQuery($filters,$sortBy)->paginate($perPage);
-		
+
 		$this->layout->contents = View::make('products.index',compact('products'));
 	}
 
