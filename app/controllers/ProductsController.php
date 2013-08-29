@@ -14,7 +14,12 @@ class ProductsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$products = Products::where('id','>',0)->paginate(50);
+		$filters = Input::only('sku','vendor','name');
+		$sortBy = Input::get('sortby','id');
+		$perPage = Input::get('perpage',50);
+
+		$products = Products::ProductQuery($filters,$sortBy)->paginate($perPage);
+		
 		$this->layout->contents = View::make('products.index',compact('products'));
 	}
 

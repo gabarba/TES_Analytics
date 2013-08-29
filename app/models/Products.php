@@ -40,6 +40,20 @@ public function itemsSold() {
 								->sum('qty');
 		return $orderItems;
 	}
+
+	//Query Scope for filtering and sorting results
+	public function scopeProductQuery($query,$filters = array(),$sortby = 'id')
+	{
+		$query->where('id','>',0);
+		if(!empty($filters)) {
+			foreach($filters as $key => $filter) {
+				if($filter){
+					$query->where($key,'LIKE','%'.$filter.'%');
+				}				
+			}
+		}
+		return $query->orderBy($sortby);
+	}
 }
 
 ?>
