@@ -4,7 +4,8 @@
 	"keywords": ["framework", "laravel"],
 	"require": {
 		"laravel/framework": "4.0.*",
-		"loic-sharma/profiler": "dev-master"
+		"loic-sharma/profiler": "dev-master",
+		"keboola/csv": "1.0.*"
 	},
 	"autoload": {
 		"classmap": [
