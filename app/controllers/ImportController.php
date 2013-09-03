@@ -15,13 +15,19 @@ class ImportController extends BaseController {
 
     public function postIndex() 
     {
+
+    	//Set execution timeout 
+    	set_time_limit(0);
+    	ini_set('memory_limit','500M');
     	$hasFile = Input::hasFile('csv_import');
+    	//$hasFile = true;
     	$delimiter = Input::get('delimiter','^');
     	$enclosure = Input::get('enclosure','|');
 
     	if($hasFile) {
     		$file = Input::file('csv_import');
     		$fileName = $file->getClientOriginalName();
+    		//$fileName = 'test_import.csv';
     		//$extension = $file->getCientOriginaExtension();
 
     		$file->move($this->_importPath,$fileName);
@@ -31,7 +37,7 @@ class ImportController extends BaseController {
 
     		$rowCount = 0;
     		$importArray = array();
-    		foreach($csvFile as $row) {
+    		foreach($csvFile as $key =>$row) {
     			if($row[0] != 'order_id') 
     			{
 
@@ -68,17 +74,29 @@ class ImportController extends BaseController {
 					'import_status' 	=> 0
     				);
     			}
+    			$row = null;
+    			unset($row);
     			$rowCount++;
     			// Import 100 rows at a time into import database reset count and import array afterwards
-   				if($rowCount == 100) 
+   				if($rowCount == 150) 
    				{
    					DB::table('import_orders')->insert($importArray);
    					$rowCount = 0;
+   					unset($importArray);
+   					gc_collect_cycles();
    					$importArray = array();
    				}
     		}
+    	
+    	
     	//Import the rest of the rows into import database 
     	DB::table('import_orders')->insert($importArray);
+    	//Destroy CsvFile , $file, $importArray
+    	$csvFile = null;
+    	$file = null;
+    	$importArray = null;
+    	unset($csvFile,$file,$importArray);
+    	gc_collect_cycles();
     	};
     	
 
