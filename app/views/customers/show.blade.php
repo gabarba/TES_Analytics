@@ -36,7 +36,7 @@
 								@foreach($order->items as $item)
 									<tr>
 										<td>{{$item->name}}</td>
-										<td>{{$item->sku}}</td>
+										<td>{{($item->product_id == 0? link_to_action('ProductsController@show',$item->sku,array($item->products_id),array('target'=>'_blank')):$item->sku) }}</td>
 										<td>{{$item->qty}}</td>
 										<td>{{$item->unit_price}}</td>
 										<td>{{$item->total}}</td>
