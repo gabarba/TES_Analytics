@@ -23,6 +23,20 @@ class CustomersController extends \BaseController {
 
 		$this->layout->contents = View::make('customers.orderItemsCount', compact('customers'));
 	}
+
+	public function thatOrdered($sku) 
+	{
+		$customers = array();
+		$orderItems = OrderItem::with('order.customer')->where('sku',$sku)->get();
+		if($orderItems) {
+			foreach($orderItems as $item) {
+			if(!array_key_exists($item->order->customer->id, $customers)){
+				$customers[$item->order->customer->id] = $item->order->customer->info();
+				}	
+			}
+		}
+		$this->layout->contents = View::make('customers.orderItemsCount', compact('customers'));
+	}
 	/**
 	 * Display a listing of the resource.
 	 *

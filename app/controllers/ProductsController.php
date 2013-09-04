@@ -51,7 +51,7 @@ class ProductsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$product = Products::find($id);
+		$product = Products::with('itemsSold.order')->find($id);
 
 		$this->layout->contents = View::make('products.show',compact('product'));
 

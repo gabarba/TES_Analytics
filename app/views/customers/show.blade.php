@@ -3,17 +3,18 @@
 	@if($customer)
 
 	
-	<div class="customer-info">
-		@foreach($customer->info() as $key => $info)
-		<div class="data-line">	
-			<div class="label">{{$key}}:</div>
-			<div class="value">{{$info}}</div>
-		</div>	
-		@endforeach
-	</div>
+	<table class="table table-hover table-bordered">
+			
+			@foreach($customer->info() as $key => $info)
+				<tr>
+					<td>{{$key}}</td>
+					<td>{{$info}}</td>
+				</tr>
+			@endforeach
+		</table>
 
 	<div class="customer-orders">
-		<table class="data-table">
+		<table class="table table-hover table-bordered">
 			<tr>
 				<th>Order Date</th>
 				<th>Shipworks Order ID</th>
@@ -24,7 +25,7 @@
 					<td>{{$order->shipworks_order_id}}</td>
 					<td>
 						
-							<table class="data-table full">
+							<table class="table table-hover table-bordered">
 								<tr>
 									<th>Name:</th>
 									<th>SKU:</th>

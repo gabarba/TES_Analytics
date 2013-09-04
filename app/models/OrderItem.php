@@ -9,6 +9,10 @@ class OrderItem extends Eloquent {
 		return $this->belongsTo('Orders');
 	}
 
+	public function product() {
+		return $this->belongsTo('Products');
+	}
+
 }
 
 ?>

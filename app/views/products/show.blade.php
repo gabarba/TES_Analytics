@@ -1,16 +1,31 @@
 @section('contents')
 
 	@if($product)
+	<h1>Orders : {{count($product->itemsSold)}} </h1>
+<table class="table table-hover table-bordered">
+			
+			@foreach($product->info() as $key => $info)
+				<tr>
+					<td>{{$key}}</td>
+					<td>{{$info}}</td>
+				</tr>
+			@endforeach
+		</table>
 
+		<table class="table table-hover table-bordered">
+			<tr>
+				<th>Order Id</th>
+				<th>Order Date</th>
+				<th>Order Status</th>
+			</tr>
+			@foreach($product->itemsSold as $order)
+				<tr>
+					<td>{{$order->order->shipworks_order_id}}</td>
+					<td>{{$order->order->order_date}}</td>
+					<td>{{($order->order->status ? 'Shipped' : 'Canceled')}}</td>
+				</tr>
+			@endforeach
+		</table>
 
-	<div class="product-info">
-		@foreach($product->info() as $key => $info)
-		<div class="data-line">	
-			<div class="label">{{$key}}:</div>
-			<div class="value">{{$info}}</div>
-		</div>	
-		@endforeach
-		{{$product->howManySoldIn()}}
-	</div>
 	@endif
 @stop

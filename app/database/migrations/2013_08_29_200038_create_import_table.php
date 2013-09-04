@@ -21,6 +21,7 @@ class CreateImportTable extends Migration {
 			$table->string('online_status');
 			$table->integer('item_qty');
 			$table->string('item_name');
+			$table->string('item_code');
 			$table->string('item_sku');
 			$table->decimal('item_total',6,2);
 			$table->decimal('shipping_total',6,2);

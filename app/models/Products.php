@@ -37,6 +37,7 @@ public function itemsSold() {
 		$orderItems = OrderItem::where('products_id',$this->id)
 								->join('orders','order_item.order_id','=','orders.id')
 								->where('orders.order_date','>=',$date->format('Y-m-d'))
+								->where('orders.status',1)
 								->sum('qty');
 		return $orderItems;
 	}
