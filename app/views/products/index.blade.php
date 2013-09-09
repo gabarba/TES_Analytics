@@ -24,7 +24,8 @@
 
 	<div class="products-list col-md-10">
 		<h3>Found {{$products->getTotal()}} Products</h3>
-		<table class="table table-hover table-bordered">
+		<table class="table table-hover table-bordered table-sort">
+			<thead>
 			<tr>
 				<th>Id</th>
 				<th>Sku</th>
@@ -36,6 +37,7 @@
 				<th>Sold in 180 Days</th>
 				<th>Sold within 1 Year</th>
 			</tr>
+		</thead>
 			@foreach($products as $product)
 				<tr>
 					<td>{{$product->id}}</td>
@@ -55,5 +57,7 @@
 
 	</div>
 </div>
+
+
 	@endif
 @stop
