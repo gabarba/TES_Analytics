@@ -111,7 +111,97 @@ class ImportController extends BaseController {
         return Redirect::to('import/process-import');
     	//$this->layout->contents = View::make('import.index',compact('hasFile')); 
     }
+public function postShipworks() 
+    {
 
+        //Set execution timeout 
+        set_time_limit(0);
+        ini_set('memory_limit','500M');
+        $fileName = Input::get('import_file','latest_import.csv');
+        //$hasFile = true;
+        $delimiter = Input::get('delimiter','^');
+        $enclosure = Input::get('enclosure','|');
+
+        if($fileName) {
+
+            $csvFile = new Keboola\Csv\CsvFile($this->_importPath.$fileName,$delimiter,$enclosure);
+
+            $rowCount = 0;
+            $importArray = array();
+            $errors = array();
+
+            foreach($csvFile as $key =>$row) {
+                if($row[0] != 'OrderID') 
+                {
+                    
+                    if(count($row) != 30 ) {
+                        //$errors[] = 'Row '.$key;
+                        echo 'Row '.$key. '<br>';
+                        continue;
+                    }
+
+                    $importArray[] = array(
+                    'order_id'          => $row[0],
+                    'order_date'        => $row[1],
+                    'local_status'      => $row[2],
+                    'online_status'     => $row[3],
+                    'item_qty'          => $row[4],
+                    'item_name'         => $row[5],
+                    'item_code'         => $row[6],
+                    'item_sku'          => $row[7],
+                    'item_total'        => $row[8],
+                    'shipping_total'    => $row[9],
+                    'ship_name'         => $row[10],
+                    'ship_address1'     => $row[11],
+                    'ship_address2'     => $row[12],
+                    'ship_address3'     => $row[13],
+                    'ship_city'         => $row[14],
+                    'ship_state'        => $row[15],
+                    'ship_postal_code'  => $row[16],
+                    'ship_country_code' => $row[17],
+                    'ship_phone'        => $row[18],
+                    'ship_email'        => $row[19],
+                    'bill_name'         => $row[20],
+                    'bill_address1'     => $row[21],
+                    'bill_address2'     => $row[22],
+                    'bill_address3'     => $row[23],
+                    'bill_city'         => $row[24],
+                    'bill_state'        => $row[25],
+                    'bill_postal_code'  => $row[26],
+                    'bill_country_code' => $row[27],
+                    'bill_phone'        => $row[28],
+                    'bill_email'        => $row[29],
+                    'import_status'     => 0
+                    );
+                }
+                $row = null;
+                unset($row);
+                $rowCount++;
+                // Import 150 rows at a time into import database reset count and import array afterwards
+                if($rowCount == 150) 
+                {
+                    DB::table('import_orders')->insert($importArray);
+                    $rowCount = 0;
+                    unset($importArray);
+                    gc_collect_cycles();
+                    $importArray = array();
+                }
+            }
+        
+        
+        //Import the rest of the rows into import database 
+        DB::table('import_orders')->insert($importArray);
+        //Destroy CsvFile , $file, $importArray
+        $csvFile = null;
+        $file = null;
+        $importArray = null;
+        unset($csvFile,$file,$importArray);
+        gc_collect_cycles();
+        };
+        
+        return Redirect::to('import/process-import');
+        //$this->layout->contents = View::make('import.index',compact('hasFile')); 
+    }
  public function getProcessImport()
     {
         //Set execution timeout 
