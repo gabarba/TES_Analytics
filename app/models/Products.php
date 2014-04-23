@@ -42,6 +42,24 @@ public function itemsSold() {
 		return $orderItems;
 	}
 
+	public function earnedBetween($startDate, $endDate) {
+
+		$start = new DateTime($startDate);
+		$end   = new DateTime($endDate);
+
+		/*
+		$orderItems = OrderItem::with(array('order'=> function($query) {
+			$query->where('order_date','>=',$date->format('Y-m-d'));
+		}))->where('products_id',$this->id)->sum('qty');
+		*/
+		$orderItems = OrderItem::where('products_id',$this->id)
+								->join('orders','order_item.order_id','=','orders.id')
+								//->whereBetween('orders.order_date',array($start->format('Y-m-d'),$end->format('Y-m-d')))
+								->whereBetween('orders.order_date',array($startDate,$endDate))
+								->where('orders.status',1)
+								->sum('total');
+		return $orderItems;
+	}
 	//Query Scope for filtering and sorting results
 	public function scopeProductQuery($query,$filters = array(),$sortby = 'id')
 	{
@@ -55,6 +73,58 @@ public function itemsSold() {
 		}
 		return $query->orderBy($sortby);
 	}
+
+	public static function scopeReturnSalesCount($query, $days = array())
+	{
+		if(empty($days))
+		{
+			$days = array(
+					7 =>'Sold in 7 Days',
+					14 =>'Sold in 14 Days',
+					30 =>'Sold in 30 Days',
+					90 =>'Sold in 90 Days',
+					180 =>'Sold in 180 Days',
+					365 =>'Sold in 1 Year',
+					 0  => 'Sold All Time'
+				);
+		}
+
+		if(!isset($days[0]))
+		{
+			$days[0] = 'Sold All Time';
+		}
+
+		$rawSQL = "test_products.id,test_products.sku,";
+		//$rawSQL = "";
+		foreach($days as $day=>$label)
+		{
+			if($day == 0)
+			{
+				$rawSQL .= "SUM(CASE WHEN test_orders.order_date <= '". \Carbon\Carbon::now()->subDays($day)->format('Y-m-d')."' THEN test_order_item.qty ELSE 0 END) as '".$label."'";
+				continue;
+			}
+			$rawSQL .= "SUM(CASE WHEN test_orders.order_date >= '". \Carbon\Carbon::now()->subDays($day)->format('Y-m-d')."' THEN test_order_item.qty ELSE 0 END) as '".$label."',";
+		}
+		
+			$query->select(DB::raw($rawSQL))
+			->join('order_item','products.id','=','order_item.products_id')
+			->join('orders','order_item.order_id','=','orders.id')
+			->where('orders.status',1)
+			->groupBy('products.sku')
+			->orderBy('products.sku', 'asc');
+			/*
+			return $query = DB::table('products')
+			->select(DB::raw($rawSQL))
+			->join('order_item','products.id','=','order_item.products_id')
+			->join('orders','order_item.order_id','=','orders.id')
+			->where('orders.status',1)
+			->groupBy('products.sku')
+			->orderBy('products.sku', 'asc');
+			*/
+			
+	}
+	
+	
 }
 
 ?>
